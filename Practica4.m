@@ -42,7 +42,11 @@ end
 
 T = table(Vi', DVi', RepVi', Vf', DVf', RepVf', Pi', DPi', Pf', DPf', Ep', IncEp');
 
-
-
+% Grafica con tramos resaltados
+figure
+plot(tied, xd, '-r')
+hold on
+plot(tiei, xi, 'ob')
+plot(tief, xf, 'og')
 
 
