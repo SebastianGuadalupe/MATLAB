@@ -6,8 +6,9 @@ m2 = 0.5015;
 dm2 = 0.0007;
 PEp = 0;
 
-
 for i = 1:10
+   figure(1)
+   xlabel('Tiempo(s)');ylabel('Posición (m)');title('Posición función tiempo')
    d=load(['Prueba', num2str(i), '.txt']);
    xd = d(1:find(d(:, 2) == max(d(:, 2))), 2);
    tied = d(1:find(d(:, 2) == max(d(:, 2))), 1);
@@ -19,6 +20,12 @@ for i = 1:10
    
    xf = xd(xd > 1);
    tief = tied(xd > 1);
+   
+   figure(2)
+   xlabel('Tiempo(s)');ylabel('Posición (m)');title('Posición función tiempo acotada')
+   plot(tiei, xi)
+   hold on
+   plot(tief, xf)
    
    %Antes del choque
    [q,w] = errormc(tiei, xi, 1);
@@ -44,9 +51,16 @@ T = table(Vi', DVi', RepVi', Vf', DVf', RepVf', Pi', DPi', Pf', DPf', Ep', IncEp
 
 % Grafica con tramos resaltados
 figure
-plot(tied, xd, '-r')
-hold on
-plot(tiei, xi, 'ob')
-plot(tief, xf, 'og')
-
-
+% plot(tied, xd, '-r')
+% hold on
+% plot(tiei, xi, 'ob')
+% plot(tief, xf, 'og')
+ POLY1= polyfit(tiei,xi,1);
+ POLY2= polyfit(tief,xf,1);
+ plot(tied, xd)
+ xlabel('Tiempo(s)');ylabel('Posición (m)');title('Posición función tiempo')
+ hold on 
+ h1 = POLY1(1)*tiei+POLY1(2);
+ h2 = POLY2(1)*tief+POLY2(2);
+ plot (tiei,h1,'-r')
+ plot(tief,h2, '-g')
